@@ -1,0 +1,162 @@
+#SeederController
+seeder:
+  path: /seeder
+  controller: App\Controller\SeederController::seeder
+cleanup:
+  path: /cleanup
+  controller: App\Controller\SeederController::cleanup
+#CityController
+City=getAll:
+  path: /city
+  controller: App\Controller\CityController::getAll
+  methods: GET
+admin-user-owner*City=getOne:
+  path: /city/{id}
+  controller: App\Controller\CityController::getOne
+  methods: GET
+admin*City=add:
+  path: /city
+  controller: App\Controller\CityController::add
+  methods: POST
+admin*City=update:
+  path: /city/{id}
+  controller: App\Controller\CityController::update
+  methods: POST
+admin*City=delete:
+  path: /city/{id}
+  controller: App\Controller\CityController::delete
+  methods: DELETE
+#CategoryController
+admin-user-owner*Category=getAll:
+  path: /category
+  controller: App\Controller\CategoryController::getAll
+  methods: GET
+admin-user-owner*Category=getOne:
+  path: /category/{id}
+  controller: App\Controller\CategoryController::getOne
+  methods: GET
+admin*Category=add:
+  path: /category
+  controller: App\Controller\CategoryController::add
+  methods: POST
+admin*Category=update:
+  path: /category/{id}
+  controller: App\Controller\CategoryController::update
+  methods: POST
+admin*Category=delete:
+  path: /category/{id}
+  controller: App\Controller\CategoryController::delete
+  methods: DELETE
+#CommentController
+admin-user-owner*Comment=getOne:
+  path: /comment/get/{id}
+  controller: App\Controller\CommentController::getOne
+  methods: GET
+admin-user-owner*Comment=getAllCommentsByRestaurant:
+  path: /comment/restaurant/{restaurantId}
+  controller: App\Controller\CommentController::getAllCommentsByRestaurant
+  methods: GET
+admin-user-owner*Comment=getAllCommentsByUser:
+  path: /comment/user
+  controller: App\Controller\CommentController::getAllCommentsByUser
+  methods: GET
+admin-user-owner*Comment=add:
+  path: /comment
+  controller: App\Controller\CommentController::add
+  methods: POST
+admin-user-owner*Comment=update:
+  path: /comment/{id}
+  controller: App\Controller\CommentController::update
+  methods: POST
+admin-user-owner*Comment=delete:
+  path: /comment/{id}
+  controller: App\Controller\CommentController::delete
+  methods: DELETE
+#LikedController
+admin-user-owner*Liked=getAllLikesByRestaurant:
+  path: /liked/restaurant
+  controller: App\Controller\LikedController::getMostLikedRestaurants
+  methods: GET
+admin-user-owner*Liked=add:
+  path: /liked
+  controller: App\Controller\LikedController::add
+  methods: POST
+admin-user-owner*Liked=delete:
+  path: /liked/{id}
+  controller: App\Controller\LikedController::delete
+  methods: DELETE
+#MenuController
+admin-user-owner*Menu=getAllMenuForRestaurant:
+  path: /menu/restaurant/{id}
+  controller: App\Controller\MenuController::getAllMenuForRestaurant
+  methods: GET
+admin-owner*Menu=add:
+  path: /menu
+  controller: App\Controller\MenuController::add
+  methods: POST
+admin-owner*Menu=getMenuByUserRestaurant:
+  path: /menu
+  controller: App\Controller\MenuController::getMenuByUserRestaurant
+  methods: GET
+admin-owner*Menu=getOne:
+  path: /menu/{id}
+  controller: App\Controller\MenuController::getOne
+  methods: GET
+admin=owner*Menu=delete:
+  path: /menu/{id}
+  controller: App\Controller\MenuController::delete
+  methods: delete
+admin-owner*Menu=update:
+  path: /menu/{id}
+  controller: App\Controller\MenuController::update
+  methods: POST
+#RestaurantController
+admin-user-owner*Restaurant=getAll:
+  path: /restaurant
+  controller: App\Controller\RestaurantController::getAll
+  methods: GET
+admin-user-owner*Restaurant=getOne:
+  path: /restaurant/{id}
+  controller: App\Controller\RestaurantController::getOne
+  methods: GET
+admin-owner*Restaurant=restaurant-by-token:
+  path: /restaurant-by-token
+  controller: App\Controller\RestaurantController::restaurantByToken
+  methods: GET
+admin-owner*Restaurant=add:
+  path: /restaurant
+  controller: App\Controller\RestaurantController::add
+  methods: POST
+admin-owner*Restaurant=update:
+  path: /restaurant-update
+  controller: App\Controller\RestaurantController::update
+  methods: POST
+#UserAuthController
+UserAuth=isRole:
+  path: /userauth/{role}
+  controller: App\Controller\UserAuthController::isRole
+  methods: GET
+admin-user-owner*UserAuth=update:
+  path: /userauth/update
+  controller: App\Controller\UserAuthController::update
+  methods: POST
+admin*UserAuth=getAll:
+  path: /userauth
+  controller: App\Controller\UserAuthController::getAll
+  methods: GET
+admin*UserAuth=delete:
+  path: /userauth/{id}
+  controller: App\Controller\UserAuthController::delete
+  methods: DELETE
+admin*UserAuth=updateRole:
+  path: /userauth/role/{id}/{role}
+  controller: App\Controller\UserAuthController::updateRole
+  methods: GET
+UserAuth=email:
+  path: /userauth/email
+  controller: App\Controller\UserAuthController::email
+  methods: POST
+UserAuth=code:
+  path: /userauth/code
+  controller: App\Controller\UserAuthController::code
+  methods: POST
