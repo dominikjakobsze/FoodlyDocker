@@ -1,0 +1,46 @@
+services:
+  app:
+    container_name: app-frontend-foodly
+    hostname: app-frontend-foodly
+    build:
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - 3500:3000
+    volumes:
+      - /frontend/node_modules
+      - ./frontend:/frontend
+  app_backend:
+    build:
+      dockerfile: backend/Dockerfile
+    container_name: app-backend-foodly
+    hostname: app-backend-foodly
+    ports:
+      - 9600:8000
+    volumes:
+      - /backend/vendor
+      - /backend/var
+      - ./backend:/backend
+  db_service:
+    image: mysql:8.0
+    hostname: db-service-foodly
+    container_name: db-service-foodly
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - 2400:3306
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: foodly
+      MYSQL_DATABASE: foodly
+      MYSQL_USER: foodly
+      MYSQL_PASSWORD: foodly
+volumes:
+  mysql_data:
+
+  #If you need a communication from one container to another, then you should use it like:
+  #To service => json-server => json-server-foodly:80
+  #Use hostname (json-server-foodly) that you want to comuunicate with
+  #Use default (3900:80 => 80 is default container, 3900 is exposed to host) port of container, not exposed one
+
+  #If you want to communicate from host to container
+  #Use expose port + localhost, so for json-server it's like localhost:3900
