@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Category;
+use App\Entity\Restaurant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -99,6 +100,19 @@ class CategoryRepository extends ServiceEntityRepository
         $category = $this->find($id);
         $category->setActive(false);
         $this->save($category, true);
+    }
+
+    public function getRestaurantByCategory($id)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('r.id restaurant_id, r.imageurl restaurant_image, r.name restaurant_name')
+            ->innerJoin(Restaurant::class, 'r', 'WITH', 'r.category = c.id')
+            ->where('c.id = :id')
+            ->andWhere('c.active = 1')
+            ->andWhere('r.active = 1')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

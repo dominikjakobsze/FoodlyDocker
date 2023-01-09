@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/scrollbar";
 
 import { Scrollbar } from "swiper";
+import Link from "next/link";
 const LocalTypes = ({ localTypes }) => {
   if (localTypes.status === 401) {
     return (
@@ -49,16 +50,18 @@ const LocalTypes = ({ localTypes }) => {
                 key={id}
                 className={"p-5 mb-5 grid grid-cols-1 place-items-center"}
               >
-                <motion.p
-                  whileHover={{
-                    scale: 1.1,
-                  }}
-                  className={
-                    "bg-gray-800 px-8 py-1 rounded-full cursor-pointer"
-                  }
-                >
-                  {category_name}
-                </motion.p>
+                <Link href={`/restaurant-by-category/${id}`}>
+                  <motion.p
+                    whileHover={{
+                      scale: 1.1,
+                    }}
+                    className={
+                      "bg-gray-800 px-8 py-1 rounded-full cursor-pointer"
+                    }
+                  >
+                    {category_name}
+                  </motion.p>
+                </Link>
               </SwiperSlide>
             );
           })}

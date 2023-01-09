@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useGetLocalTypesSSR } from "../../hooks/ssrHooks/useGetLocalTypesSSR";
 import axios from "axios";
 import { getCookie } from "cookies-next";
+import ModalMessageContext from "../../context/ModalMessageContext";
 export const getServerSideProps = async (context) => {
   const { params, req, res } = context;
   axios.defaults.headers.common["authtoken"] = getCookie("authtoken", {
@@ -37,10 +38,57 @@ const categories = ({ access, categories }) => {
       headers: { authtoken: getCookie("authtoken") },
     });
   };
-  console.log(categories);
+  const { setContentModalMessage, setOpenModalMessage } =
+    React.useContext(ModalMessageContext);
+  const [name, setName] = React.useState("");
+  const handleSubmit = () => {
+    const bodyFormData = new FormData();
+    bodyFormData.append("category_name", name);
+    axios
+      .post("http://localhost:9600/category", bodyFormData, {
+        headers: { authtoken: getCookie("authtoken") },
+      })
+      .then((res) => {
+        if (res?.data?.accepted === false) {
+          setContentModalMessage({
+            title: "Oops!",
+            content: res?.data?.result,
+          });
+        } else {
+          setContentModalMessage({
+            title: "Ok!",
+            content: "Dodano kategorię",
+          });
+        }
+        setOpenModalMessage(true);
+      });
+  };
   return (
     <>
       <UserHeaderApp />
+      <div className={"w-full p-3 flex-col flex-wrap flex gap-4 mt-10 mb-5"}>
+        <div
+          className={
+            "rounded-lg w-full place-self-center grid grid-cols-1 place-items-center bg-transparent elevation-3 text-gray-700 max-w-[430px]"
+          }
+        >
+          <input
+            type="text"
+            className={"w-full bg-transparent p-2"}
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            placeholder={"Nazwa kategorii"}
+          />
+        </div>
+        <button
+          className={
+            "hover:bg-red-500 bg-red-400 place-self-center py-2 px-8 rounded-lg text-gray-50 font-bold elevation-3"
+          }
+          onClick={() => handleSubmit()}
+        >
+          Dodaj Kategorie
+        </button>
+      </div>
       {access?.accepted && (
         <div className={"w-full p-3 mt-10 flex flex-col gap-5 mb-5"}>
           <h1 className={"w-full text-gray-800 text-2xl"}>Kategorie:</h1>

@@ -116,4 +116,13 @@ class CategoryController extends AbstractController
             "result" => "Kategoria zostało usunięte"
         ]);
     }
+
+    public function getRestaurantByCategory(CategoryRepository $category, $id)
+    {
+        $result = $category->getRestaurantByCategory($id);
+        return $this->json([
+            "accepted" => true,
+            "result" => $result
+        ]);
+    }
 }

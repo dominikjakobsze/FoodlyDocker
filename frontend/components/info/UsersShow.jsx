@@ -29,7 +29,7 @@ const UsersShow = ({ usersShow }) => {
           {params.users !== false
             ? params.users.map(({ image, id }, index) => (
                 <motion.img
-                  src={image}
+                  src={"http://localhost:9600" + image}
                   alt={id}
                   className={`w-10 h-10 rounded-full`}
                   key={id}
@@ -59,24 +59,3 @@ const UsersShow = ({ usersShow }) => {
 };
 
 export default UsersShow;
-
-// <img
-//     src={users[1].image}
-//     alt={users[1].id}
-//     className={`w-10 h-10 rounded-full -translate-x-[20px]`}
-// />
-// <img
-//     src={users[2].image}
-//     alt={users[2].id}
-//     className={`w-10 h-10 rounded-full -translate-x-[40px]`}
-// />
-// <img
-//     src={users[3].image}
-//     alt={users[3].id}
-//     className={`w-10 h-10 rounded-full -translate-x-[60px]`}
-// />
-// <img
-//     src={users[4].image}
-//     alt={users[4].id}
-//     className={`w-10 h-10 rounded-full -translate-x-[80px]`}
-// />

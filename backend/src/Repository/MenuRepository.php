@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Menu;
 use App\Entity\Restaurant;
+use App\Entity\UserAuth;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -29,6 +30,21 @@ class MenuRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findNewest()
+    {
+        return $this->createQueryBuilder('m')
+            ->select('m.imageurl dish_image, m.name dish_name, r.name restaurant_name, r.id restaurant_id, u.imageurl user_image, u.email user_email')
+            ->innerJoin(Restaurant::class, 'r', 'WITH', 'm.restauranttable = r.id')
+            ->innerJoin(UserAuth::class, 'u', 'WITH', 'r.userauthtable = u.id')
+            ->andWhere('r.active = 1')
+            ->andWhere('m.active = 1')
+            ->andWhere('u.active = 1')
+            ->orderBy('m.id', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
     }
 
     public function remove(Menu $entity, bool $flush = false): void

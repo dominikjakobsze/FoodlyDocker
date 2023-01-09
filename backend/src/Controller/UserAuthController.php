@@ -153,4 +153,12 @@ class UserAuthController extends AbstractController
         ]);
         return $response;
     }
+
+    public function all(UserAuthRepository $user)
+    {
+        return $this->json([
+            "accepted" => true,
+            "result" => $user->showAll()
+        ]);
+    }
 }

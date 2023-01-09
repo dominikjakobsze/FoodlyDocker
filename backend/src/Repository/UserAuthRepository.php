@@ -54,6 +54,15 @@ class UserAuthRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function showAll()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.id, u.imageurl image')
+            ->andWhere('u.active = 1')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return UserAuth[] Returns an array of UserAuth objects
 //     */

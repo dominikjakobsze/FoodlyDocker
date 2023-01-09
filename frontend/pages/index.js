@@ -24,15 +24,25 @@ export const getServerSideProps = async (context) => {
   const access = await useCheckRoleSSR("admin-user-owner");
   const topRestaurants = await useGetTopTenRestaurantsSSR();
   const localTypes = await useGetLocalTypesSSR();
+  const topFood = await axios.get("http://app-backend-foodly:8000/newest");
+  const usersShow = await axios.get("http://app-backend-foodly:8000/user/all");
   return {
     props: {
       topRestaurants: topRestaurants.data,
       localTypes: localTypes.data,
       access: access.data,
+      topFood: topFood.data,
+      usersShow: usersShow.data,
     },
   };
 };
-export default function Home({ topRestaurants, localTypes, access }) {
+export default function Home({
+  topRestaurants,
+  localTypes,
+  access,
+  topFood,
+  usersShow,
+}) {
   const router = useRouter();
   React.useEffect(() => {
     if (access?.status === 401) {
@@ -73,7 +83,7 @@ export default function Home({ topRestaurants, localTypes, access }) {
       <IndexSubHeader align={"start"}>
         Sprawdź najnowsze pozycje na naszej stronie.
       </IndexSubHeader>
-      {/*<BestFoodCarousel topFood={topFood} />*/}
+      <BestFoodCarousel topFood={topFood?.result} />
       <IndexHeader
         header={"Platforma Foodly to społeczność!"}
         align={"start"}
@@ -82,7 +92,7 @@ export default function Home({ topRestaurants, localTypes, access }) {
         Foodly to ludzie! Pamiętajmy o tym! A jak to wygląda w liczbach?
         Przekonajcie się sami :)
       </IndexSubHeader>
-      {/*<UsersShow usersShow={usersShow} />*/}
+      <UsersShow usersShow={usersShow.result} />
       <IndexHeader header={"Jesteś restauratorem?"} align={"start"} />
       <IndexSubHeader align={"start"}>
         Foodly to platforma, która zrzesza restauratorów i klientów. Dzięki

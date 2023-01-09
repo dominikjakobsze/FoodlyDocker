@@ -27,6 +27,15 @@ class MenuController extends AbstractController
         ]);
     }
 
+    public function newest(MenuRepository $menu)
+    {
+        $menus = $menu->findNewest();
+        return $this->json([
+            "accepted" => true,
+            "result" => $menus
+        ]);
+    }
+
     public function getMenuByUserRestaurant(MenuRepository $menu, Request $request, RestaurantRepository $restaurant)
     {
         $reRestaurant = $restaurant->findBy(["userauthtable" => $request->attributes->get("_user")]);

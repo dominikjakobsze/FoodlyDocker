@@ -47,6 +47,10 @@ admin*Category=delete:
   path: /category/{id}
   controller: App\Controller\CategoryController::delete
   methods: DELETE
+admin-user-ownerCategory=getRestaurantByCategory:
+  path: /restaurant-by-category/{id}
+  controller: App\Controller\CategoryController::getRestaurantByCategory
+  methods: GET
 #CommentController
 admin-user-owner*Comment=getOne:
   path: /comment/get/{id}
@@ -110,6 +114,10 @@ admin-owner*Menu=update:
   path: /menu/{id}
   controller: App\Controller\MenuController::update
   methods: POST
+admin-owner-user*Menu=newest:
+  path: /newest
+  controller: App\Controller\MenuController::newest
+  methods: GET
 #RestaurantController
 admin-user-owner*Restaurant=getAll:
   path: /restaurant
@@ -160,3 +168,7 @@ UserAuth=code:
   path: /userauth/code
   controller: App\Controller\UserAuthController::code
   methods: POST
+admin-user-owner*UserAuth=all:
+  path: /user/all
+  controller: App\Controller\UserAuthController::all
+  methods: GET
