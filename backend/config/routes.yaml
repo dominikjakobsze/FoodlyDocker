@@ -47,7 +47,7 @@ admin*Category=delete:
   path: /category/{id}
   controller: App\Controller\CategoryController::delete
   methods: DELETE
-admin-user-ownerCategory=getRestaurantByCategory:
+admin-user-owner*Category=getRestaurantByCategory:
   path: /restaurant-by-category/{id}
   controller: App\Controller\CategoryController::getRestaurantByCategory
   methods: GET
