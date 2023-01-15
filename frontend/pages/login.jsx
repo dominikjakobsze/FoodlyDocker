@@ -8,7 +8,7 @@ export const getServerSideProps = async (context) => {
   const cities = await axios.get("http://app-backend-foodly:8000/city");
   const { req, res } = context;
   return {
-    props: { cities: cities.data, token: getCookie("authtoken", { req, res }) },
+    props: { cities: cities.data },
   };
 };
 const login = ({ cities, token }) => {
